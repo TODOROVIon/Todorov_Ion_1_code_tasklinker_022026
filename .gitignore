@@ -11,3 +11,7 @@
 ###< symfony/framework-bundle ###
 
 private.md
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
