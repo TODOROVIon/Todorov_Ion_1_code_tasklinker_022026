@@ -24,9 +24,16 @@ class Tag
     #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'tag')]
     private Collection $idProject;
 
+    /**
+     * @var Collection<int, Tache>
+     */
+    #[ORM\ManyToMany(targetEntity: Tache::class, mappedBy: 'tag')]
+    private Collection $taches;
+
     public function __construct()
     {
         $this->idProject = new ArrayCollection();
+        $this->taches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +78,33 @@ class Tag
             if ($idProject->getTag() === $this) {
                 $idProject->setTag(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Tache $tach): static
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches->add($tach);
+            $tach->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Tache $tach): static
+    {
+        if ($this->taches->removeElement($tach)) {
+            $tach->removeTag($this);
         }
 
         return $this;

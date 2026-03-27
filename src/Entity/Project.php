@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +32,17 @@ class Project
 
     #[ORM\ManyToOne(inversedBy: 'idProject')]
     private ?Tag $tag = null;
+
+    /**
+     * @var Collection<int, Users>
+     */
+    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'projects')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @var Collection<int, Tache>
@@ -117,5 +129,29 @@ class Project
     /**
      * @return Collection<int, Tache>
      */
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Users $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): static
+    {
+        $this->users->removeElement($user);
+
+        return $this;
+    }
     
     }

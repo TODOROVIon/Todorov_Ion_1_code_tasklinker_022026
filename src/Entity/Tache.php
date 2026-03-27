@@ -40,9 +40,16 @@ class Tache
     #[ORM\OneToMany(targetEntity: TimeTable::class, mappedBy: 'idTache')]
     private Collection $timeTables;
 
+    /**
+     * @var Collection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'taches')]
+    private Collection $tag;
+
     public function __construct()
     {
         $this->timeTables = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +155,30 @@ class Tache
                 $timeTable->setIdTache(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->tag->removeElement($tag);
 
         return $this;
     }
