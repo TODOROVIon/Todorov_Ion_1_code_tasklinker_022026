@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
@@ -36,6 +38,24 @@ class Users
 
     #[ORM\Column]
     private ?bool $is_active = null;
+
+    /**
+     * @var Collection<int, Tache>
+     */
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'idUser')]
+    private Collection $taches;
+
+    /**
+     * @var Collection<int, TimeTable>
+     */
+    #[ORM\OneToMany(targetEntity: TimeTable::class, mappedBy: 'idUser')]
+    private Collection $timeTables;
+
+    public function __construct()
+    {
+        $this->taches = new ArrayCollection();
+        $this->timeTables = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +154,66 @@ class Users
     public function setIsActive(bool $is_active): static
     {
         $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Tache $tach): static
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches->add($tach);
+            $tach->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Tache $tach): static
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getIdUser() === $this) {
+                $tach->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TimeTable>
+     */
+    public function getTimeTables(): Collection
+    {
+        return $this->timeTables;
+    }
+
+    public function addTimeTable(TimeTable $timeTable): static
+    {
+        if (!$this->timeTables->contains($timeTable)) {
+            $this->timeTables->add($timeTable);
+            $timeTable->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTimeTable(TimeTable $timeTable): static
+    {
+        if ($this->timeTables->removeElement($timeTable)) {
+            // set the owning side to null (unless already changed)
+            if ($timeTable->getIdUser() === $this) {
+                $timeTable->setIdUser(null);
+            }
+        }
 
         return $this;
     }

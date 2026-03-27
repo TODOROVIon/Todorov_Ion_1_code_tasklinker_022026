@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -31,6 +32,11 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'idProject')]
     private ?Tag $tag = null;
 
+    /**
+     * @var Collection<int, Tache>
+     */
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'idProject')]
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -107,4 +113,9 @@ class Project
 
         return $this;
     }
-}
+
+    /**
+     * @return Collection<int, Tache>
+     */
+    
+    }
