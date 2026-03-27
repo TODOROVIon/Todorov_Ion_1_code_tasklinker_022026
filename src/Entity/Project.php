@@ -48,7 +48,6 @@ class Project
      * @var Collection<int, Tache>
      */
     #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'idProject')]
-   
     public function getId(): ?int
     {
         return $this->id;
@@ -153,5 +152,4 @@ class Project
 
         return $this;
     }
-    
-    }
+}

@@ -14,20 +14,19 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        
         $tagSymfony = new Tag();
         $tagSymfony->setName('Symfony');
         $manager->persist($tagSymfony);
-        
+
         $tagReact = new Tag();
         $tagReact->setName('React');
         $manager->persist($tagReact);
-        
+
         $tagPython = new Tag();
         $tagPython->setName('Python');
         $manager->persist($tagPython);
 
-######################################
+        // #####################################
 
         $status1 = new Status();
         $status1->setName('À faire');
@@ -45,7 +44,7 @@ class AppFixtures extends Fixture
         $status4->setName('Terminé');
         $manager->persist($status4);
 
-######################################
+        // #####################################
 
         $project = new Project();
         $project->setName('Tasklinker');
@@ -53,7 +52,7 @@ class AppFixtures extends Fixture
         $project->setDeadline(new \DateTime('2026-12-31'));
         $project->setArchived(false);
         $project->setStatus($status3);
-        $project->setTag($tagSymfony);        
+        $project->setTag($tagSymfony);
         $manager->persist($project);
 
         $project2 = new Project();
@@ -65,7 +64,7 @@ class AppFixtures extends Fixture
         $project2->setTag($tagReact);
         $manager->persist($project2);
 
-######################################
+        // #####################################
 
         $user1 = new Users();
         $user1->setFirstName('John');
@@ -104,7 +103,7 @@ class AppFixtures extends Fixture
         $user3->addProject($project2);
         $manager->persist($user3);
 
-######################################
+        // #####################################
 
         $tache1 = new Tache();
         $tache1->setName('Créer la maquette de la page d\'accueil');
@@ -123,7 +122,7 @@ class AppFixtures extends Fixture
         $tache2->setIdUser($user2);
         $manager->persist($tache2);
 
-######################################
+        // #####################################
 
         $manager->flush();
     }
