@@ -25,6 +25,12 @@ class Project
     #[ORM\Column]
     private ?bool $archived = null;
 
+    #[ORM\ManyToOne(inversedBy: 'idProject')]
+    private ?Status $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'idProject')]
+    private ?Tag $tag = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +80,30 @@ class Project
     public function setArchived(bool $archived): static
     {
         $this->archived = $archived;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): static
+    {
+        $this->tag = $tag;
 
         return $this;
     }
