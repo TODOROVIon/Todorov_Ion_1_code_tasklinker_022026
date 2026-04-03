@@ -18,7 +18,7 @@
                   </a>
                   <div class="card-project-icons">
                      <a href="{{ path('app_projet_edit', {'id': project.id}) }}"><i class="fa-solid fa-pen"></i></a>
-                     <a href="#"><i class="fa-solid fa-trash"></i></a>
+                     <a href="{{ path('app_projet_delete', {'id': project.id}) }}"><i class="fa-solid fa-trash"></i></a>
                   </div>
                </article>
             {% endfor %}

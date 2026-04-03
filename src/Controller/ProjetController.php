@@ -87,4 +87,16 @@ final class ProjetController extends AbstractController
             'project' => $project,
         ]);
     }
+    
+    #[Route('/projet/delete/{id}', name: 'app_projet_delete')]
+    public function delete(ProjectRepository $projectRepository, EntityManagerInterface $entityManager, int $id): Response
+    {
+        $project = $projectRepository->find($id);
+
+        $entityManager->remove($project);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_home');
+        }
+   
 }
