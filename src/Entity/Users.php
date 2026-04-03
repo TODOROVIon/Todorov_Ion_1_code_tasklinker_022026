@@ -251,4 +251,11 @@ class Users
 
         return $this;
     }
+
+    public function getInitials(): string
+    {
+        $firstInitial = $this->first__name ? strtoupper($this->first__name[0]) : '';
+        $lastInitial = $this->last_name ? strtoupper($this->last_name[0]) : '';
+        return $firstInitial . $lastInitial;
+    }
 }

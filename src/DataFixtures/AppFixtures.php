@@ -112,6 +112,7 @@ class AppFixtures extends Fixture
         $tache1->setDeadline(new \DateTime('2026-04-10'));
         $tache1->setIdProject($project);
         $tache1->setIdUser($user1);
+        $tache1->setIdStatus($status1);
         $manager->persist($tache1);
 
         $tache2 = new Tache();
@@ -120,6 +121,7 @@ class AppFixtures extends Fixture
         $tache2->setDeadline(new \DateTime('2026-04-20'));
         $tache2->setIdProject($project2);
         $tache2->setIdUser($user2);
+        $tache2->setIdStatus($status2);
         $manager->persist($tache2);
 
         // #####################################
