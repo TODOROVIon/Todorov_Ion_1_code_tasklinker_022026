@@ -31,11 +31,12 @@ final class ProjetController extends AbstractController
     #[Route('/projet/show/{id}', name: 'app_projet_show')]
     public function show(int $id, ProjectRepository $projectRepository,TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
     {
-        $project = $projectRepository->find($id);
+        $project = $projectRepository->findByExampleField($id);
 
         $taches = $tacheRepository->findBy(['idProject' => $project]);
         $statuses = $statusRepository->findAll();
         $tag = $tagRepository->findAll();
+        dd($project);
 
         return $this->render('projet/project.html.twig', [
             'controller_name' => 'ProjetController',
@@ -87,7 +88,7 @@ final class ProjetController extends AbstractController
             'project' => $project,
         ]);
     }
-    
+
     #[Route('/projet/delete/{id}', name: 'app_projet_delete')]
     public function delete(ProjectRepository $projectRepository, EntityManagerInterface $entityManager, int $id): Response
     {
