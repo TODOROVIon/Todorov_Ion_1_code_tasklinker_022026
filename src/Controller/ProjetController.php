@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
+use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
-use App\Repository\TacheRepository;
 use App\Repository\StatusRepository;
+use App\Repository\TacheRepository;
 use App\Repository\TagRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -38,6 +42,45 @@ final class ProjetController extends AbstractController
             'taches' => $taches,
             'statuses' => $statuses,
             'tags' => $tag,
+        ]);
+    }
+
+    #[Route('/projet/add', name: 'app_projet_add')]
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $project = new Project();
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($project);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('projet/project-add.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/projet/edit/{id}', name: 'app_projet_edit')]
+    public function edit(ProjectRepository $projectRepository, Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
+        $project = $projectRepository->find($id);
+
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_projet', ['id' => $project->getId()]);
+        }
+
+        return $this->render('projet/project-edit.html.twig', [
+            'form' => $form,
+            'project' => $project,
         ]);
     }
 }
