@@ -31,12 +31,12 @@ final class ProjetController extends AbstractController
     #[Route('/projet/show/{id}', name: 'app_projet_show')]
     public function show(int $id, ProjectRepository $projectRepository,TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
     {
-        $project = $projectRepository->findByExampleField($id);
+        $project = $projectRepository->myFind($id);
 
         $taches = $tacheRepository->findBy(['idProject' => $project]);
         $statuses = $statusRepository->findAll();
         $tag = $tagRepository->findAll();
-        dd($project);
+
 
         return $this->render('projet/project.html.twig', [
             'controller_name' => 'ProjetController',

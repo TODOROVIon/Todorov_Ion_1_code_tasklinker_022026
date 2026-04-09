@@ -17,10 +17,10 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
         /**
-         * @return Project[] Returns an array of Project objects
+         * @return ?Project Returns a Project or Null
          */
         # A faire la recherche pour moi TODO
-        public function findByExampleField($id): ?Project
+        public function myFind(int $id): ?Project
         {
             return $this->createQueryBuilder('p')
                 ->join('p.status', 's')
@@ -30,7 +30,7 @@ class ProjectRepository extends ServiceEntityRepository
                 ->andWhere('p.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getOneOrNullResult()          # 
             ;
         }
 

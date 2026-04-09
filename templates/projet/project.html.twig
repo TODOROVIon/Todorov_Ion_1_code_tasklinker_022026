@@ -25,7 +25,7 @@
                         <div class="tasks-list">
                            {% for tache in taches %}
                               {% if tache.idStatus.id == status.id %}
-                              <a class="task" href="#">
+                              <a class="task" href="{{ path('app_tache_detail', {'id': tache.id}) }}">
                                  <h3>{{ tache.name }}</h3>
                                  <p>{{ tache.description }}</p>
                                  <div class="task-infos">
