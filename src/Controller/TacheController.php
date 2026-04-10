@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class TacheController extends AbstractController
 {
-    #[Route('/tache/{id}', name: 'app_tache_detail', requirements: ['id' => '\d+'])]
+    #[Route('/tache/{id}', name: 'app_project_tache_detail', requirements: ['id' => '\d+'])]
     public function index(int $id, TacheRepository $tacheRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $tache = $tacheRepository->find($id);
@@ -28,7 +28,7 @@ final class TacheController extends AbstractController
             $entityManager->persist($tache);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_show', ['id' => $tache->getIdProject()->getId()]);
+            return $this->redirectToRoute('app_project_show', ['id' => $tache->getIdProject()->getId()]);
         }
 
         return $this->render('tache/tache.html.twig', [
@@ -38,7 +38,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/tache/add/{id}', name: 'app_tache_add', requirements: ['id' => '\d+'])]
+    #[Route('/tache/add/{id}', name: 'app_project_tache_add', requirements: ['id' => '\d+'])]
     public function add(int $id,Request $request, EntityManagerInterface $entityManager, ProjectRepository $projectRepository): Response
     {
         $project = $projectRepository->find($id);
@@ -55,7 +55,7 @@ final class TacheController extends AbstractController
             $entityManager->persist($tache);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_show', ['id' => $id]);
+            return $this->redirectToRoute('app_project_show', ['id' => $id]);
         }
 
         return $this->render('tache/tache-add.html.twig', [
@@ -64,7 +64,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/tache/delete/{id}', name: 'app_tache_delete', requirements: ['id' => '\d+'], methods: ['POST' ,'GET', 'DELETE'])]
+    #[Route('/tache/delete/{id}', name: 'app_project_tache_delete', requirements: ['id' => '\d+'], methods: ['POST' ,'GET', 'DELETE'])]
     public function delete(int $id, TacheRepository $tacheRepository, EntityManagerInterface $entityManager): Response
     {
         $tache = $tacheRepository->find($id);
@@ -74,7 +74,7 @@ final class TacheController extends AbstractController
             $entityManager->remove($tache);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_show', ['id' => $projectId]);
+            return $this->redirectToRoute('app_project_show', ['id' => $projectId]);
         }
 
         return $this->render('tache/tache-add.html.twig', [

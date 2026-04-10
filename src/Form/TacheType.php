@@ -44,9 +44,8 @@ class TacheType extends AbstractType
                 'choice_label' => function(Users $user) {
                     return $user->getFirstName() . ' ' . $user->getLastName();
                 },
-                'label' => 'Employé',
+                'label' => 'Membre',
                 'required' => false,
-                'placeholder' => '-- Sélectionner un employé --',
                 'attr' => ['class' => 'form-control']
             ])
         ;

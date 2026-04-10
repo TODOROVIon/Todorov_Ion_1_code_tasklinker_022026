@@ -28,7 +28,7 @@ final class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/projet/show/{id}', name: 'app_projet_show')]
+    #[Route('/projet/show/{id}', name: 'app_project_show')]
     public function show(int $id, ProjectRepository $projectRepository, TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
     {
         $project = $projectRepository->myFind($id);
@@ -47,7 +47,7 @@ final class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/projet/add', name: 'app_projet_add')]
+    #[Route('/projet/add', name: 'app_project_add')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $project = new Project();
@@ -69,7 +69,7 @@ final class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/projet/edit/{id}', name: 'app_projet_edit')]
+    #[Route('/projet/edit/{id}', name: 'app_project_edit')]
     public function edit(ProjectRepository $projectRepository, Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         $project = $projectRepository->find($id);
@@ -80,7 +80,7 @@ final class ProjetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_show', ['id' => $project->getId()]);
+            return $this->redirectToRoute('app_project_show', ['id' => $project->getId()]);
         }
 
         return $this->render('projet/project-edit.html.twig', [
@@ -89,7 +89,7 @@ final class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/projet/delete/{id}', name: 'app_projet_delete')]
+    #[Route('/projet/delete/{id}', name: 'app_project_delete')]
     public function delete(ProjectRepository $projectRepository, EntityManagerInterface $entityManager, int $id): Response
     {
         $project = $projectRepository->find($id);

@@ -32,13 +32,13 @@
                </a>
                <ul id="main-menu">
                   <li class="{{ app.request.attributes.get('_route') starts with 'app_home' or app.request.attributes.get('_route') starts with
-  'app_projet' ? 'active' : '' }}">
+  'app_project' ? 'active' : '' }}">
                      <a href="{{ path('app_home') }}">
                      <i class="fa-solid fa-list-check"></i> Projets
                      </a>
                   </li>
-                  <li class="{{ app.request.attributes.get('_route') starts with 'app_equipe' ? 'active' : '' }}">
-                     <a href="{{ path('app_equipe') }}">
+                  <li class="{{ app.request.attributes.get('_route') starts with 'app_users' ? 'active' : '' }}">
+                     <a href="{{ path('app_users_list') }}">
                         <i class="fa-regular fa-user"></i> Équipe
                      </a>
                   </li>

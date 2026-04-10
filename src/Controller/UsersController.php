@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UsersController extends AbstractController
 {
-    #[Route('/list', name: 'app_equipe')]
+    #[Route('/list', name: 'app_users_list')]
     public function index(UsersRepository $usersRepository, StatusRepository $statusRepository): Response
     {
         $users = $usersRepository->findAll();
@@ -37,7 +37,7 @@ final class UsersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_equipe');
+            return $this->redirectToRoute('app_users_list');
         }
 
         return $this->render('users/user.html.twig', [
@@ -62,6 +62,6 @@ final class UsersController extends AbstractController
         $entityManager->remove($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_equipe');
+        return $this->redirectToRoute('app_users_list');
     }
 }
