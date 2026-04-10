@@ -98,6 +98,6 @@ final class ProjetController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_home');
-        }
+    }
    
 }

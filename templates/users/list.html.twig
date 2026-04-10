@@ -37,7 +37,7 @@
                            <a class="button button-edit-team" href="{{ path('app_users_show', {'id': user.id}) }}">
                            Éditer
                            </a>
-                           <a class="delete-team" href="#">
+                           <a class="delete-team" href="{{ path('app_users_delete', {'id': user.id}) }}">
                            Supprimer
                            </a>
                         </td>

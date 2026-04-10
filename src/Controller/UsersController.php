@@ -45,4 +45,23 @@ final class UsersController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/users/delete/{id}', name: 'app_users_delete')]
+    public function delete(UsersRepository $usersRepository, EntityManagerInterface $entityManager, int $id): Response
+    {
+        $user = $usersRepository->find($id);
+
+        foreach ($user->getTaches() as $tache) {
+            $tache->setIdUser(null);
+        }
+
+        foreach ($user->getProjects() as $project) {
+            $user->removeProject($project);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_equipe');
+    }
 }
