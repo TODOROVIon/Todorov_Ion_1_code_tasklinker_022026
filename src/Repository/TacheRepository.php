@@ -23,9 +23,9 @@ class TacheRepository extends ServiceEntityRepository
     public function findByProjectWithRelations(Project $projet): array
     {
         return $this->createQueryBuilder('t')
-             ->leftJoin('t.idStatus', 's')
+             ->innerJoin('t.idStatus', 's')         //if status is empty, tache will not show
              ->addSelect('s')
-             ->leftJoin('t.idUser', 'u')
+             ->leftJoin('t.idUser', 'u')           //if user is empty, tache will show
              ->addSelect('u')
              ->andWhere('t.idProject = :projet')
              ->setParameter('projet', $projet)
