@@ -33,7 +33,7 @@ final class ProjetController extends AbstractController
     {
         $project = $projectRepository->myFind($id);
 
-        $taches = $tacheRepository->findBy(['idProject' => $project]);
+        $taches = $tacheRepository->findByProjectWithRelations($project);
         $statuses = $statusRepository->findAll();
         $tag = $tagRepository->findAll();
 

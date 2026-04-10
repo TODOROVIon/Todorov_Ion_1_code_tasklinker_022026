@@ -27,6 +27,8 @@ class ProjectRepository extends ServiceEntityRepository
                 ->addSelect('s')
                 ->join('p.tag', 't')
                 ->addSelect('t')
+                ->leftJoin('p.users', 'u')
+                ->addSelect('u')
                 ->andWhere('p.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
