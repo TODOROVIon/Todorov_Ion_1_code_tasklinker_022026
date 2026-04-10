@@ -29,20 +29,16 @@ class AppFixtures extends Fixture
         // #####################################
 
         $status1 = new Status();
-        $status1->setName('À faire');
+        $status1->setName('To Do');
         $manager->persist($status1);
 
         $status2 = new Status();
-        $status2->setName('En cours');
+        $status2->setName('Doing');
         $manager->persist($status2);
 
         $status3 = new Status();
-        $status3->setName('En attente');
+        $status3->setName('Done');
         $manager->persist($status3);
-
-        $status4 = new Status();
-        $status4->setName('Terminé');
-        $manager->persist($status4);
 
         // #####################################
 

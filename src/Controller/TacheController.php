@@ -34,6 +34,7 @@ final class TacheController extends AbstractController
         return $this->render('tache/tache.html.twig', [
             'controller_name' => 'TacheController',
             'form' => $form->createView(),
+            'tache' => $tache
         ]);
     }
 
@@ -59,7 +60,25 @@ final class TacheController extends AbstractController
 
         return $this->render('tache/tache-add.html.twig', [
             'form' => $form->createView(),
-            'project' => $project
+            'project' => $project,
+        ]);
+    }
+
+    #[Route('/tache/delete/{id}', name: 'app_tache_delete', requirements: ['id' => '\d+'], methods: ['POST' ,'GET', 'DELETE'])]
+    public function delete(int $id, TacheRepository $tacheRepository, EntityManagerInterface $entityManager): Response
+    {
+        $tache = $tacheRepository->find($id);
+
+        if ($tache) {
+            $projectId = $tache->getIdProject()->getId();
+            $entityManager->remove($tache);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_projet_show', ['id' => $projectId]);
+        }
+
+        return $this->render('tache/tache-add.html.twig', [
+            'tache' => $tache
         ]);
     }
 }

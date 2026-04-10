@@ -32,6 +32,11 @@
                                     <div class="task-deadline">
                                        <i class="fa-regular fa-calendar"></i> {{ tache.deadline|date('d/m/Y') }}
                                     </div>
+                                    {% if tache.idUser %}
+                                       <div class="mini-user">
+                                          {{ tache.idUser.initials }}
+                                       </div>
+                                    {% endif %}
                                  </div>
                               </a>
                               {% endif %}

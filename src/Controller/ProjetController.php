@@ -29,7 +29,7 @@ final class ProjetController extends AbstractController
     }
 
     #[Route('/projet/show/{id}', name: 'app_projet_show')]
-    public function show(int $id, ProjectRepository $projectRepository,TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
+    public function show(int $id, ProjectRepository $projectRepository, TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
     {
         $project = $projectRepository->myFind($id);
 

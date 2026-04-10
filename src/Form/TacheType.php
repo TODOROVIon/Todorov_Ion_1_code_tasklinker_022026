@@ -26,10 +26,9 @@ class TacheType extends AbstractType
                 'attr' => ['class' => 'form-control', 'rows' => 4]
             ])
             ->add('deadline', DateType::class, [
-                'label' => 'Date limite',
+                'label' => 'Date',
                 'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd/MM/yyyy',
+                'html5' => true,
                 'required' => false,
                 'attr' => ['class' => 'form-control']
             ])
