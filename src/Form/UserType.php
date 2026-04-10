@@ -22,7 +22,7 @@ class UserType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => true,
                 'required' => false,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ])
         ;
     }

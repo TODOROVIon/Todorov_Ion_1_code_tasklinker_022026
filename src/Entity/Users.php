@@ -256,6 +256,7 @@ class Users
     {
         $firstInitial = $this->first__name ? strtoupper($this->first__name[0]) : '';
         $lastInitial = $this->last_name ? strtoupper($this->last_name[0]) : '';
-        return $firstInitial . $lastInitial;
+
+        return $firstInitial.$lastInitial;
     }
 }

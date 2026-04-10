@@ -16,25 +16,25 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-        /**
-         * @return ?Project Returns a Project or Null
-         */
-        # A faire la recherche pour moi TODO
-        public function myFind(int $id): ?Project
-        {
-            return $this->createQueryBuilder('p')
-                ->join('p.status', 's')
-                ->addSelect('s')
-                ->join('p.tag', 't')
-                ->addSelect('t')
-                ->leftJoin('p.users', 'u')
-                ->addSelect('u')
-                ->andWhere('p.id = :id')
-                ->setParameter('id', $id)
-                ->getQuery()
-                ->getOneOrNullResult()          # 
-            ;
-        }
+    /**
+     * @return ?Project Returns a Project or Null
+     */
+    // A faire la recherche pour moi TODO
+    public function myFind(int $id): ?Project
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.status', 's')
+            ->addSelect('s')
+            ->join('p.tag', 't')
+            ->addSelect('t')
+            ->leftJoin('p.users', 'u')
+            ->addSelect('u')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
     //    public function findOneBySomeField($value): ?Project
     //    {

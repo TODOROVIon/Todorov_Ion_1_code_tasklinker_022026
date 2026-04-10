@@ -18,35 +18,35 @@ class TacheType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Titre',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('description', null, [
                 'label' => 'Description',
                 'required' => false,
-                'attr' => ['class' => 'form-control', 'rows' => 4]
+                'attr' => ['class' => 'form-control', 'rows' => 4],
             ])
             ->add('deadline', DateType::class, [
                 'label' => 'Date',
                 'widget' => 'single_text',
                 'html5' => true,
                 'required' => false,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('idStatus', EntityType::class, [
                 'class' => Status::class,
                 'choice_label' => 'name',
                 'label' => 'Statut',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('idUser', EntityType::class, [
                 'class' => Users::class,
                 'choices' => $options['project'] ? $options['project']->getUsers() : [],
-                'choice_label' => function(Users $user) {
-                    return $user->getFirstName() . ' ' . $user->getLastName();
+                'choice_label' => function (Users $user) {
+                    return $user->getFirstName().' '.$user->getLastName();
                 },
                 'label' => 'Membre',
                 'required' => false,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ])
         ;
     }

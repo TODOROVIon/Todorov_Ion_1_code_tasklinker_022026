@@ -8,7 +8,6 @@ use App\Repository\ProjectRepository;
 use App\Repository\StatusRepository;
 use App\Repository\TacheRepository;
 use App\Repository\TagRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,14 +28,13 @@ final class ProjetController extends AbstractController
     }
 
     #[Route('/projet/show/{id}', name: 'app_project_show')]
-    public function show(int $id, ProjectRepository $projectRepository, TagRepository $tagRepository, TacheRepository $tacheRepository,StatusRepository $statusRepository): Response
+    public function show(int $id, ProjectRepository $projectRepository, TagRepository $tagRepository, TacheRepository $tacheRepository, StatusRepository $statusRepository): Response
     {
         $project = $projectRepository->myFind($id);
 
         $taches = $tacheRepository->findByProjectWithRelations($project);
         $statuses = $statusRepository->findAll();
         $tag = $tagRepository->findAll();
-
 
         return $this->render('projet/project.html.twig', [
             'controller_name' => 'ProjetController',
@@ -55,8 +53,8 @@ final class ProjetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $project->setStartDate(new DateTime());
-            $project->setDeadline(new DateTime());
+            $project->setStartDate(new \DateTime());
+            $project->setDeadline(new \DateTime());
             $project->setArchived(false);
             $entityManager->persist($project);
             $entityManager->flush();
@@ -99,5 +97,4 @@ final class ProjetController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
-   
 }

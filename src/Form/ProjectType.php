@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\Project;
 use App\Entity\Users;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +24,7 @@ class ProjectType extends AbstractType
             ->add('users', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function (Users $user) {
-                    return $user->getFirstName() . ' ' . $user->getLastName();
+                    return $user->getFirstName().' '.$user->getLastName();
                 },
                 'multiple' => true,
                 'expanded' => false,

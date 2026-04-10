@@ -20,7 +20,7 @@ final class TacheController extends AbstractController
         $tache = $tacheRepository->find($id);
 
         $form = $this->createForm(TacheType::class, $tache, [
-            'project' => $tache->getIdProject()
+            'project' => $tache->getIdProject(),
         ]);
         $form->handleRequest($request);
 
@@ -34,12 +34,12 @@ final class TacheController extends AbstractController
         return $this->render('tache/tache.html.twig', [
             'controller_name' => 'TacheController',
             'form' => $form->createView(),
-            'tache' => $tache
+            'tache' => $tache,
         ]);
     }
 
     #[Route('/tache/add/{id}', name: 'app_project_tache_add', requirements: ['id' => '\d+'])]
-    public function add(int $id,Request $request, EntityManagerInterface $entityManager, ProjectRepository $projectRepository): Response
+    public function add(int $id, Request $request, EntityManagerInterface $entityManager, ProjectRepository $projectRepository): Response
     {
         $project = $projectRepository->find($id);
 
@@ -47,7 +47,7 @@ final class TacheController extends AbstractController
         $tache->setIdProject($project);
 
         $form = $this->createForm(TacheType::class, $tache, [
-            'project' => $project
+            'project' => $project,
         ]);
         $form->handleRequest($request);
 
@@ -64,7 +64,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/tache/delete/{id}', name: 'app_project_tache_delete', requirements: ['id' => '\d+'], methods: ['POST' ,'GET', 'DELETE'])]
+    #[Route('/tache/delete/{id}', name: 'app_project_tache_delete', requirements: ['id' => '\d+'], methods: ['POST', 'GET', 'DELETE'])]
     public function delete(int $id, TacheRepository $tacheRepository, EntityManagerInterface $entityManager): Response
     {
         $tache = $tacheRepository->find($id);
@@ -78,8 +78,7 @@ final class TacheController extends AbstractController
         }
 
         return $this->render('tache/tache-add.html.twig', [
-            'tache' => $tache
+            'tache' => $tache,
         ]);
     }
 }
-
