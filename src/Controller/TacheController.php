@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Tache;
 use App\Form\TacheType;
+use App\Repository\ProjectRepository;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class TacheController extends AbstractController
 {
-    #[Route('/tache/{id}', name: 'app_tache_detail')]
+    #[Route('/tache/{id}', name: 'app_tache_detail', requirements: ['id' => '\d+'])]
     public function index(int $id, TacheRepository $tacheRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $tache = $tacheRepository->find($id);
@@ -34,4 +36,31 @@ final class TacheController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/tache/add/{id}', name: 'app_tache_add', requirements: ['id' => '\d+'])]
+    public function add(int $id,Request $request, EntityManagerInterface $entityManager, ProjectRepository $projectRepository): Response
+    {
+        $project = $projectRepository->find($id);
+
+        $tache = new Tache();
+        $tache->setIdProject($project);
+
+        $form = $this->createForm(TacheType::class, $tache, [
+            'project' => $project
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($tache);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_projet_show', ['id' => $id]);
+        }
+
+        return $this->render('tache/tache-add.html.twig', [
+            'form' => $form->createView(),
+            'project' => $project
+        ]);
+    }
 }
+

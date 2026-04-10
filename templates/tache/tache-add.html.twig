@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des projets{% endblock %}
+
+{% block main %}
+        <header>
+               <div id="current-user"></div>
+               <div id="title-page">
+                  <h1>Créer une tâche</h1>
+               </div>
+            </header>
+            <div id="content">
+               <div id="content">
+                {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.deadline) }}
+                    {{ form_row(form.idStatus) }}
+                    {{ form_row(form.idUser) }}
+
+                    <br>
+                    <button class="button button-submit">Ajouter</button>
+                    <a href="{{ path('app_projet_show', {id: project.id}) }}" class="delete-task">Annuler</a>
+                {{ form_end(form) }}             
+            </div>
+            </div>
+{% endblock %}
